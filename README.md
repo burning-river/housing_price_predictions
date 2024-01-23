@@ -26,8 +26,8 @@ The housing prices were distributed as following:
 
 We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
 <p float="left">
-<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_overallQual.png" width="285" height="200"/>
-<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_exteriorQual.png" width="285" height="200"/>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_overallQual.png" width="420" height="300"/>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_exteriorQual.png" width="420" height="300"/>
 </p>
 
 ### HOUSE PRICE PREDICTIONS
