@@ -1,7 +1,45 @@
-# Housing Price Predictions
+# HOUSING PRICE PREDICTIONS
 
-The goal of the project is to predict house prices from the Ames (Iowa, USA) housing dataset. The dataset contains detailed description of 1000 houses. The features not only include the attributes of the houses but also include information such as the type of land the house was built on, description of the neighborhood and proximity to railroads and parks.
+### DATASET  DESCRIPTION:
 
-The project utilizes pre-processing techniques such as outlier analysis, data imputation for missing values and ordinal and nominal encoding for categorical variables. We then perform correlation analysis for feature selection. Next, we test a variety of regression models and find that XGBoost performs the best (average R^2 score of 0.86 on 5-fold cross-validation). We then fine-tune the model using grid search cross-validation. We then train the fine-tuned model on the entire dataset and test it on an unseen test set.
+The dataset contains descriptions and prices of 1000 houses in Ames, Iowa. The goal of the project was to predict housing prices from the 79 features used to describe the houses. 
+<p>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/iowa-usa.png" width="700" height="350"/>
+</p>
+The features describing the houses included house condition, description of living room, bedrooms, basement, garage, and other spaces in the house, and other features describing the land around the house, neighborhood, street, etc.
 
-We also looked at the most important features predicting housing prices. We find that _OverallQual_ - "Rates the overall material and finish of the house" - and _ExterQual_ - "Evaluates the quality of the material on the exterior" - were the 2 most correlated features with sale prices. For XGBoost, _GrLivArea_ described as "Above grade (ground) living area square feet" and _LotArea_ described as "Lot size in square feet" were the 2 most important features. In the end, we plot a figure demonstrating overfitting vs underfitting using the maximum depth of the XGBoost trees as a proxy for model complexity.
+<p float="left">
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/floor%20plans.png" width="500" height="400"/>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/top-view.png" width="500" height="400"/>
+</p>
+
+The housing prices were distributed as following:
+
+* The average house price was $ 177, 932
+* Half of the houses had a price lower than $ 161, 625
+* The most common house price was $ 135, 000
+<p>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/house_prices_distribution.png" width="500" height="350"/>
+</p>
+
+### KEY TAKEAWAYS FROM THE STUDY
+
+We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
+<p float="left">
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_overallQual.png" width="500" height="350"/>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/Price_vs_exteriorQual.png" width="500" height="350"/>
+</p>
+
+### HOUSE PRICE PREDICTIONS
+
+We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16, 708.
+
+<p>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/prediction_comparison.png" width="500" height="400"/>
+</p>
+
+We also looked at the features that played the most important role in predicting the prices. Living room area and lot area were the two most important predictive features.
+
+<p>
+<img src="https://github.com/burning-river/housing_price_predictions/blob/main/feature_importance.png" width="800" height="400"/>
+</p>
