@@ -32,13 +32,13 @@ We found that overall material and finish of the house, rated between 1 (very po
 
 ### HOUSE PRICE PREDICTIONS
 
-We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16, 708.
+We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16,400.
 
 <p>
 <img src="https://github.com/burning-river/housing_price_predictions/blob/main/prediction_comparison.png" width="500" height="400"/>
 </p>
 
-We also looked at the features that played the most important role in predicting the prices. Living room area and lot area were the two most important predictive features.
+We also looked at the features that played the most important role in predicting the prices. 'Overall Material and Finish of House' and 'Living Room Area' were the two most important predictive features.
 
 <p>
 <img src="https://github.com/burning-river/housing_price_predictions/blob/main/feature_importance.png" width="800" height="400"/>
