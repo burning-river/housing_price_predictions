@@ -41,5 +41,5 @@ We trained a model to predict house prices based on their features. We then test
 We also looked at the features that played the most important role in predicting the prices. 'Overall Material and Finish of House' and 'Living Room Area' were the two most important predictive features.
 
 <p>
-<img src="https://github.com/burning-river/housing_price_predictions/blob/main/feature_importance.png" width="700" height="400"/>
+<img src="figures/feature_importance.png" width="700" height="400"/>
 </p>
