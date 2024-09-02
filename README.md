@@ -22,9 +22,9 @@ The housing prices were distributed as following:
 <img src="figures/house_prices_distribution.png" width="500" height="350"/>
 </p>
 
-The spatial distribution can be visualized by the figure below:
+The spatial distribution of the prices can be visualized by the figure below:
 <p>
-<img src="figures/house_prices_spatial.png" width="500" height="350"/>
+<img src="figures/housing_prices_spatial.png" width="600" height="350"/>
 </p>
 
 ### KEY TAKEAWAYS FROM THE STUDY
