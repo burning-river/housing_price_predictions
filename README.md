@@ -22,6 +22,11 @@ The housing prices were distributed as following:
 <img src="figures/house_prices_distribution.png" width="500" height="350"/>
 </p>
 
+The spatial distribution can be visualized by the figure below:
+<p>
+<img src="figures/house_prices_spatial.png" width="500" height="350"/>
+</p>
+
 ### KEY TAKEAWAYS FROM THE STUDY
 
 We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
