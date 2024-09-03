@@ -38,9 +38,16 @@ The spatial distribution of the houses and prices can be visualized by the figur
 
 3. About 93% houses had 1 to 3 car garages.
 
-4. There was some seasonality in the month of sale: in the months between January - April, about 25% of the houses were sold. 50% of the houses were sold between the peak months of May to July. The rest of the months, August to December sold only 25% of the houses.
+4. Most houses were sold between 2008 - 2009 almost evenly.
 
-5. Most houses were sold between 2008 - 2009 almost evenly.
+#### Temporal dependence of sales and sale price
+
+There was some seasonality in the month of sale: in the months between January - April, about 25% of the houses were sold. 50% of the houses were sold between the peak months of May to July. The rest of the months, August to December sold only 25% of the houses. We also observed a trend of increasing average sale price with increasing year of remodeling. The temporal modeling of sale prices is not forecasted in this work but is in progress.
+
+<p float="left">
+<img src="figures/seasonality.png" width="400" height="350"/>
+<img src="figures/trend.png" width="400" height="350"/>
+</p>
 
 #### Predictive modeling
 
