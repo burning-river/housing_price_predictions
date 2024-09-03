@@ -31,15 +31,18 @@ The spatial distribution of the houses and prices can be visualized by the figur
 ### KEY TAKEAWAYS FROM THE STUDY
 
 #### Exploratory data analysis
-Most of the houses were in average condition: Overall quality between 5 to 7 (on a scale of 1 to 10) for 75% of the houses and Overall condition between 5 to 7 (scale of 1 to 10) for 88%.
 
-95% of the houses had between 2 to 4 bedrooms.
+1. Most of the houses were in average condition: Overall quality between 5 to 7 (on a scale of 1 to 10) for 75% of the houses and Overall condition between 5 to 7 (scale of 1 to 10) for 88%.
 
-About 93% houses had 1 to 3 car garages.
+2. 95% of the houses had between 2 to 4 bedrooms.
 
-There was some seasonality in the month of sale: in the months between January - April, about 25% of the houses were sold. 50% of the houses were sold between the peak months of May to July. The rest of the months, August to December sold only 25% of the houses.
+3. About 93% houses had 1 to 3 car garages.
 
-Most houses were sold between 2008 - 2009 almost evenly.
+4. There was some seasonality in the month of sale: in the months between January - April, about 25% of the houses were sold. 50% of the houses were sold between the peak months of May to July. The rest of the months, August to December sold only 25% of the houses.
+
+5. Most houses were sold between 2008 - 2009 almost evenly.
+
+#### Predictive modeling
 
 We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
 <p float="left">
