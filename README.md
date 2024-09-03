@@ -22,8 +22,9 @@ The housing prices were distributed as following:
 <img src="figures/house_prices_distribution.png" width="500" height="350"/>
 </p>
 
-The spatial distribution of the prices can be visualized by the figure below:
-<p>
+The spatial distribution of the houses and prices can be visualized by the figures below. The borders show the Ames city limits. The red dots in the first plot show the location of the houses and the second plot the price variation in different parts of the city.
+<p float="left">
+<img src="figures/housing_basemap.png" width="600" height="350"/>
 <img src="figures/housing_prices_spatial.png" width="600" height="350"/>
 </p>
 
