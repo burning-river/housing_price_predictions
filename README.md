@@ -52,6 +52,11 @@ There was some seasonality in the month of sale: in the months between January -
 
 #### Predictive modeling
 
+The workflow of model training can be illustrated as follows:
+<p float="left">
+<img src="figures/training_workflow.png" width="1200" height="750"/>
+</p>
+
 We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
 <p float="left">
 <img src="figures/Price_vs_overallQual.png" width="420" height="300"/>
@@ -59,6 +64,11 @@ We found that overall material and finish of the house, rated between 1 (very po
 </p>
 
 ### HOUSE PRICE PREDICTIONS
+
+The workflow of model inference can be illustrated as follows:
+<p float="left">
+<img src="figures/inference_workflow.png" width="600" height="300"/>
+</p>
 
 We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16,400.
 
