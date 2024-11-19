@@ -56,6 +56,7 @@ The workflow of model training can be illustrated as follows:
 <p float="left">
 <img src="figures/training_workflow.png" width="1200" height="750"/>
 </p>
+The model is evaluated on the mean R2 scores from 5-fold cross validation. If the mean R2 score is greater than 0.8, then the trained model is deployed. Currently, our framework doesn't include monitoring data skew. It is work in progress. 
 
 We found that overall material and finish of the house, rated between 1 (very poor) to 10 (very excellent), as well as the quality of the material on the exterior (Excellent, Good, Typical, Fair) were the most related to the house price. Houses with excellent quality material, finish and exterior were priced higher and vice versa.
 <p float="left">
