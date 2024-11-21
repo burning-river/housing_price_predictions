@@ -52,7 +52,7 @@ There was some seasonality in the month of sale: in the months between January -
 
 #### Predictive modeling
 
-The workflow of model training can be illustrated as below. The model is evaluated on the mean R2 scores from 5-fold cross validation. If the mean R2 score is greater than 0.8, then the trained model is deployed. Currently, our framework doesn't include monitoring data skew. It is work in progress. 
+The workflow of model training can be illustrated as below. The model is evaluated on the mean R2 scores from 5-fold cross validation. If the mean R2 score is greater than 0.8, then the trained model is deployed. The work follows the MLOps framework that includes experiment tracking, inference, and detecting data drift between training and test set.
 
 <p float="left">
 <img src="figures/training_workflow.png" width="1200" height="750"/>
@@ -69,6 +69,15 @@ We found that overall material and finish of the house, rated between 1 (very po
 The workflow of model inference can be illustrated as follows:
 <p float="left">
 <img src="figures/inference_workflow.png" width="600" height="300"/>
+</p>
+
+The data drift detection workflow is shown below along with the output of the pipeline (no noticeable drift was observed):
+<p float="left">
+<img src="figures/data_skew_pipeline.png" width="600" height="300"/>
+</p>
+
+<p float="left">
+<img src="figures/drift_output.png" width="600" height="300"/>
 </p>
 
 We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16,400.
