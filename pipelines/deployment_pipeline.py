@@ -14,10 +14,16 @@ from zenml.steps import BaseParameters, Output
 from zenml.services import BaseService
 from zenml.client import Client
 from steps.load_data import load_df
+from steps.load_test import load_test_df
 from steps.preprocessing import preprocess_df
 from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 from .utils import get_data_for_test
+from zenml.integrations.evidently.steps import (
+    EvidentlyColumnMapping,
+    evidently_report_step,
+)
+from zenml.integrations.evidently.metrics import EvidentlyMetricConfig
 
 docker_settings = DockerSettings(required_integrations=[MLFLOW])
 
@@ -179,3 +185,38 @@ def inference_pipeline(pipeline_name: str, pipeline_step_name: str):
 
     return
 
+@pipeline(enable_cache=False, settings={"docker": docker_settings})
+def train_test_checks_pipeline():
+    """Digits pipeline with train-test check."""
+    reference = load_df()
+    comparison = load_test_df()
+
+    skew_detector = evidently_report_step.with_options(
+    parameters=dict(
+        column_mapping = EvidentlyColumnMapping(
+            numerical_features = ['MSSubClass', 'LotFrontage', 'LotArea', 'OverallQual',
+       'OverallCond', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea',
+       'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF',
+       '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'BsmtFullBath',
+       'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr',
+       'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt',
+       'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF',
+       'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal',
+       'MoSold', 'YrSold'],
+            categorical_features = ['MSZoning', 'Street', 'Alley', 'LotShape', 'LandContour',
+       'Utilities', 'LotConfig', 'LandSlope', 'Neighborhood',
+       'Condition1', 'Condition2', 'BldgType', 'HouseStyle', 'RoofStyle',
+       'RoofMatl', 'Exterior1st', 'Exterior2nd', 'MasVnrType',
+       'ExterQual', 'ExterCond', 'Foundation', 'BsmtQual', 'BsmtCond',
+       'BsmtExposure', 'BsmtFinType1', 'BsmtFinType2', 'Heating',
+       'HeatingQC', 'CentralAir', 'Electrical', 'KitchenQual',
+       'Functional', 'FireplaceQu', 'GarageType', 'GarageFinish',
+       'GarageQual', 'GarageCond', 'PavedDrive', 'PoolQC', 'Fence',
+       'MiscFeature', 'SaleType', 'SaleCondition']
+        ),
+        metrics=[
+            EvidentlyMetricConfig.metric("DatasetDriftMetric"),
+        ],
+    ),
+)       
+    skew_detector(reference, comparison)
