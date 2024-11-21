@@ -10,13 +10,14 @@ from src.model_dev import FeatureSelection, FeatureScaling
 from src.ohe_test import TestDataOneHotEncoding
 from src.feature_selection_test import DropCorrelatedFeatures
 from src.normalize_test import Normalize
+from steps.load_data import load_df
+from steps.load_test import load_test_df
 
 @step
 def get_data_for_test():
     try:
-        train_df = pd.read_csv('/content/drive/MyDrive/housing_price_predictions/data/Housing_Data_Train.csv')
-        test_df = pd.read_csv("/content/drive/MyDrive/housing_price_predictions/data/Housing_Data_Test.csv")
-        # test_df = test_df.sample(n=100)
+        train_df = load_df()
+        test_df = load_test_df()
         # print('Shape of original train data: ', train_df.shape)
         # print('Shape of original test data: ', test_df.shape)
 
@@ -63,8 +64,6 @@ def get_data_for_test():
 
         train_data, [], correlated_features = FeatureSelection().train_data(train_data, [])
         test_data = DropCorrelatedFeatures().handle_data(test_data, correlated_features)
-        # for col in correlated_features:
-        #     print(col)
         # print('Shape of train data after dropping correlated features: ', train_data.shape)
         # print('Shape of test data after dropping correlated features: ', test_data.shape)
             
@@ -72,9 +71,6 @@ def get_data_for_test():
         test_data = Normalize().handle_data(test_data, normalizer)
         # print('Shape of final train data: ', train_data.shape)
         # print('Shape of final test data: ', test_data.shape)
-
-        # print('NAN values in train data', train_data.isnull().values.any())
-        # print('NAN values in test data', test_data.isnull().values.any())
 
         result = test_data.to_json(orient="split")
         return result
