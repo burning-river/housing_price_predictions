@@ -73,11 +73,11 @@ The workflow of model inference can be illustrated as follows:
 
 The data drift detection workflow is shown below along with the output of the pipeline (no noticeable drift was observed):
 <p float="left">
-<img src="figures/data_skew_pipeline.png" width="600" height="300"/>
+<img src="figures/data_skew_pipeline.png" width="400" height="300"/>
 </p>
 
 <p float="left">
-<img src="figures/drift_output.png" width="600" height="300"/>
+<img src="figures/drift_output.png" width="600" height="150"/>
 </p>
 
 We trained a model to predict house prices based on their features. We then tested the model on a test dataset of 100 houses. From the figure below, we see that our predicted prices are very close to the actual prices. The overall error in prediction is $16,400.
