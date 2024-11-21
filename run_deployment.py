@@ -1,7 +1,8 @@
 from typing import cast
 from pipelines.deployment_pipeline import (
   continuous_deployment_pipeline,
-  inference_pipeline
+  inference_pipeline,
+  train_test_checks_pipeline
 )
 import click
 from rich import print
@@ -9,15 +10,22 @@ from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
 from zenml.integrations.mlflow.model_deployers.mlflow_model_deployer import MLFlowModelDeployer
 from zenml.integrations.mlflow.services import MLFlowDeploymentService
 
+from zenml.integrations.evidently.steps import (
+    EvidentlyColumnMapping,
+    evidently_report_step,
+)
+from zenml.integrations.evidently.metrics import EvidentlyMetricConfig
+
 DEPLOY = 'deploy'
 PREDICT = 'predict'
 DEPLOY_AND_PREDICT = 'deploy_and_predict'
+DETECT_SKEW = 'detect_skew'
 
 @click.command()
 @click.option(
 '--config',
 '-c',
-type = click.Choice([DEPLOY, PREDICT, DEPLOY_AND_PREDICT]),
+type = click.Choice([DEPLOY, PREDICT, DEPLOY_AND_PREDICT, DETECT_SKEW]),
 default = DEPLOY_AND_PREDICT,
 help = ''
 )
@@ -31,6 +39,7 @@ def main(config: str, min_rsquared: float):
     mlflow_model_deployer_component = MLFlowModelDeployer.get_active_model_deployer()
     deploy = config == DEPLOY or config == DEPLOY_AND_PREDICT
     predict = config == PREDICT or config == DEPLOY_AND_PREDICT
+    detect_skew = config == DETECT_SKEW
     if deploy:
         continuous_deployment_pipeline(
           min_rsquared = min_rsquared,
@@ -43,6 +52,8 @@ def main(config: str, min_rsquared: float):
             pipeline_name="continuous_deployment_pipeline",
             pipeline_step_name="mlflow_model_deployer_step",
         )
+    if detect_skew:
+        train_test_checks_pipeline() 
 
     print(
         "You can run:\n "
