@@ -105,8 +105,8 @@ def continuous_deployment_pipeline(
   timeout: int = DEFAULT_SERVICE_START_STOP_TIMEOUT
 ):
     df = load_df()
-    clean_df, target = preprocess_df(df)
-    data_scaled, model = train_model(clean_df, target)
+    data_scaled, target = preprocess_df(df)
+    model = train_model(data_scaled, target)
     mean_r2, std_r2, mean_rmse, std_rmse = evaluate_model(data_scaled, target, model)
     deployment_decision = deployment_trigger(mean_r2)
     mlflow_model_deployer_step(
