@@ -2,11 +2,11 @@ import logging
 import pandas as pd
 from zenml import step
 from src.data_preprocessing import DataPreProcessing, DataCleaningStrategy, \
-ImputingMissingValues, DroppingRedundantColumns, OneHotEncoding, RemovingOutliers
+ImputingMissingValues, DroppingRedundantColumns, RemovingOutliers, \
+OneHotEncoding, ExtractingTarget, FeatureSelection, FeatureScaling
 from src.preprocess_test import TestDataCleaningStrategy, \
 TestDataDroppingRedundantColumns
 from src.impute_test import ImputeMissingVals
-from src.model_dev import FeatureSelection, FeatureScaling
 from src.ohe_test import TestDataOneHotEncoding
 from src.feature_selection_test import DropCorrelatedFeatures
 from src.normalize_test import Normalize
@@ -62,12 +62,18 @@ def get_data_for_test():
         # print('Shape of train data after OHE: ', train_data.shape)
         # print('Shape of test data after OHE: ', test_data.shape)
 
-        train_data, [], correlated_features = FeatureSelection().train_data(train_data, [])
+        feature_selection_strategy = FeatureSelection()
+        data_uncorrelated = DataPreProcessing(train_data, feature_selection_strategy)
+        train_data, correlated_features = data_uncorrelated.handle_data()
+
         test_data = DropCorrelatedFeatures().handle_data(test_data, correlated_features)
         # print('Shape of train data after dropping correlated features: ', train_data.shape)
         # print('Shape of test data after dropping correlated features: ', test_data.shape)
-            
-        train_data, [], normalizer = FeatureScaling().train_data(train_data, [])
+
+        feature_scaling_strategy = FeatureScaling()
+        data_scaled = DataPreProcessing(train_data, feature_scaling_strategy)
+        train_data, normalizer = data_scaled.handle_data()
+
         test_data = Normalize().handle_data(test_data, normalizer)
         # print('Shape of final train data: ', train_data.shape)
         # print('Shape of final test data: ', test_data.shape)
