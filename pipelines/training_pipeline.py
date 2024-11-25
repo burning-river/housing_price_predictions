@@ -7,6 +7,6 @@ from steps.evaluation import evaluate_model
 @pipeline(enable_cache = True)
 def train_pipeline(data_path: str):
     df = load_df(data_path)
-    clean_df, target = preprocess_df(df)
-    data_scaled, model = train_model(clean_df, target)
+    data_scaled, target = preprocess_df(df)
+    model = train_model(data_scaled, target)
     mean_r2, std_r2, mean_rmse, std_rmse = evaluate_model(data_scaled, target, model)
