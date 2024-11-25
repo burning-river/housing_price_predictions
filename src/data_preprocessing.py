@@ -9,6 +9,7 @@ import numpy as np
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import MaxAbsScaler
 from sklearn.pipeline import Pipeline 
 
 class DataStrategy(ABC):
@@ -131,6 +132,17 @@ class RemovingOutliers(DataStrategy):
             logging.error(f'Error removing outliers (src): {e}')
             raise e
 
+class ExtractingTarget(DataStrategy):
+    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, np.ndarray]:
+        try:
+            target = data['SalePrice'].values
+            data.drop(columns = ['SalePrice'], inplace = True) 
+
+            return data, target
+        except Exception as e:
+            logging.error(f'Error extracting target variable (src): {e}')
+            raise e
+
 class OneHotEncoding(DataStrategy):
     def handle_data(self, data: pd.DataFrame):
         try:
@@ -223,15 +235,67 @@ class OneHotEncoding(DataStrategy):
             logging.error(f'Error performing one hot encoding (src): {e}')
             raise e
 
-class ExtractingTarget(DataStrategy):
-    def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, np.ndarray]:
+class FeatureSelection(DataStrategy):
+    def handle_data(self, X_train: pd.DataFrame) -> Union[pd.DataFrame, list]:
         try:
-            target = data['SalePrice'].values
-            data.drop(columns = ['SalePrice'], inplace = True) 
+            def find_correlated_pairs(X):
+                # Initialize an empty list to store correlated feature pairs
+                correlated_pairs = []
+                # Calculate the correlation matrix for the normalized training data
+                train_set_corr_mat = X.corr()
+                # print('correlated pairs of features: \n')
+                # Iterate over the columns of the correlation matrix
+                for row in train_set_corr_mat.columns.values:
+                    # Iterate over the columns of the correlation matrix
+                    for col in train_set_corr_mat.columns.values:
+                          # Check if the absolute value of the correlation coefficient is greater than 0.9 and the features are not the same
+                        if abs(train_set_corr_mat.loc[row, col] ) > 0.9 and row != col:
+                            # print(row, col, round(train_set_corr_mat.loc[row, col], 3))
+                            # Add the correlated feature pair to the list
+                            correlated_pairs.append((row, col))
+                correlated_pairs = [correlated_pairs[i] for i in range(0,len(correlated_pairs),2)]
 
-            return data, target
+                return correlated_pairs
+
+            correlated_pairs = find_correlated_pairs(X_train)
+            correlated_cols = [ent[0] for ent in correlated_pairs]
+            X_train.drop(columns=correlated_cols, inplace=True)
+
+            return X_train, correlated_cols
         except Exception as e:
-            logging.error(f'Error extracting target variable (src): {e}')
+            logging.error(f'Error Selecting Features (src): {e}')
+            raise e
+
+class FeatureScaling(DataStrategy):
+    def handle_data(self, X_train: pd.DataFrame):
+        try:
+            def normalization(X):
+                '''
+                The function takes an input X, which represents the data to be scaled
+                
+                The function returns two values: 
+                X_transform: which represents the scaled data, 
+                X_transformer: which represents the fitted max absolute scaling transformer object, and 
+                '''    
+                # Define the columns that will be passed through for scaling
+                passthrough_columns = X.columns.values
+                features = ColumnTransformer([('passthrough','passthrough',passthrough_columns)])
+                # Create a Pipeline object to chain multiple transformers together
+                transformer = Pipeline([('features',features), ('scaling', MaxAbsScaler())])
+                # fitting the scaling transformer on the dataset
+                X_transformer = transformer.fit(X)  
+                # applying the scaling on the dataset
+                X_transform = X_transformer.transform(X)
+                  
+                return X_transform, X_transformer
+
+            X_train_norm, X_train_normalizer = normalization(X_train)
+            norm_X_train_data_df = pd.DataFrame(data = X_train_norm, columns = list(X_train.columns))
+
+            return norm_X_train_data_df, X_train_normalizer 
+
+        except Exception as e:
+            logging.info(f'Error Scaling features (src): {e}')
             raise e
 
 class DataPreProcessing:
