@@ -1,0 +1,10 @@
+lmfit 
+pandas 
+scikit-learn 
+package_outlier 
+matplotlib 
+seaborn 
+xgboost 
+statsmodels
+zenml
+zenml[server]==0.67.0
